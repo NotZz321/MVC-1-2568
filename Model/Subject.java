@@ -7,19 +7,24 @@ public class Subject {
     private String subjectName;
     private int credits;
     private String instructor;
-    private ArrayList<Subject> preSubjectID;
+    private ArrayList<Subject> preSubjectID = new ArrayList<Subject>();
     private int maxStudent;
     private int currentStudent;
     private ArrayList<Student> students; // แก้ไข: เพิ่ม initialization
 
     public Subject(String subjectID, String subjectName, int credits, String instructor, 
-                   ArrayList<Subject> preSubjectID, int maxStudent, int currentStudent) {
+                   Subject preSubjectID, int maxStudent, int currentStudent) {
         if (isValidSubjectID(subjectID) && isValidCredits(credits) && isValidmaxStudent(maxStudent)) {
             this.subjectID = subjectID;
             this.subjectName = subjectName;
             this.credits = credits;
             this.instructor = instructor;
-            this.preSubjectID = preSubjectID;
+            
+            // if have presubject must register
+            if (preSubjectID != null) {
+                this.preSubjectID.add(preSubjectID);
+            }
+
             this.maxStudent = maxStudent;
             this.currentStudent = currentStudent;
             this.students = new ArrayList<>(); // แก้ไข: initialize ArrayList
@@ -50,7 +55,7 @@ public class Subject {
             return true;
         } else if (currentStudent < maxStudent) {
             return true;
-        }
+        } 
         return false;
     }
 
@@ -64,7 +69,7 @@ public class Subject {
     }
 
     public boolean isStudentRegistered(String studentID) {
-        if (students == null) return false; // แก้ไข: เพิ่ม null check
+        if (students == null) return false; 
         for (Student student : students) {
             if (student.getId().equals(studentID)) {
                 return true;

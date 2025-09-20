@@ -59,6 +59,16 @@ public class Controller {
         return period.getYears() >= 15;
     }
 
+    public String calculateAgeForShow(Student student) {
+        if (student.getDateOfBirth() == null) return "N/A";
+        
+        java.time.Period period = java.time.Period.between(
+            student.getDateOfBirth(), 
+            java.time.LocalDate.now()
+        );
+        return String.valueOf(period.getYears()) + " years old";
+    }
+
     public boolean authenticateUser(String username, String password) {
         return username.equals("admin") && password.equals("admin");
     }

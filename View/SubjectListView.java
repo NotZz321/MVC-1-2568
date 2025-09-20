@@ -1,11 +1,11 @@
 package View;
 
-import Model.*;
 import Controller.*;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import Model.*;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class SubjectListView extends JFrame {
     private Controller controller;
@@ -29,7 +29,7 @@ public class SubjectListView extends JFrame {
 
     private void initializeComponents() {
         setTitle("Available Subjects for Registration");
-        setSize(800, 600);
+        setSize(1200, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -141,7 +141,7 @@ public class SubjectListView extends JFrame {
         if (subject.getPreSubjectID() != null) {
             for (Subject preSubject : subject.getPreSubjectID()) {
                 if (!preSubject.isStudentRegistered(student.getId())) {
-                    return "Prerequisites not met";
+                    return "Have To Register " + preSubject.getSubjectName();
                 }
             }
         }

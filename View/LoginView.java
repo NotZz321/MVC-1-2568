@@ -9,11 +9,11 @@ public class LoginView extends JFrame {
     public JTextField usernameField;
     public JPasswordField passwordField;
     public JButton loginBtn;
-    private Database database;
+    // private Database database;
     private Controller controller;
 
     public LoginView(Database database, Controller controller) {
-        this.database = database;
+        // this.database = database;
         this.controller = controller;
         
         initializeComponents();
@@ -22,8 +22,9 @@ public class LoginView extends JFrame {
     
     private void initializeComponents() {
         setTitle("Student Registration System - Login");
-        setSize(350, 200);
+        setSize(500, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // set to center of screen
         setLocationRelativeTo(null);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -85,6 +86,7 @@ public class LoginView extends JFrame {
         String username = usernameField.getText().trim();
         String password = new String(passwordField.getPassword());
         
+        // Check for empty username
         if (username.isEmpty()) {
             showError("Please enter a username.");
             return;
@@ -94,6 +96,7 @@ public class LoginView extends JFrame {
         if (username.equals("admin") && password.equals("admin")) {
             // Admin login successful
             try {
+                // Open admin grade view
                 AdminGradeView adminView = new AdminGradeView(controller.getStudents(), controller);
                 adminView.setVisible(true);
                 this.dispose();
@@ -106,6 +109,7 @@ public class LoginView extends JFrame {
             if (student != null) {
                 // Student login successful
                 try {
+                    // Open student profile view
                     StudentProfileView profileView = new StudentProfileView(student, controller);
                     profileView.setVisible(true);
                     this.dispose();

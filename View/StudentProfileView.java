@@ -1,11 +1,11 @@
 package View;
 
-import Model.*;
 import Controller.*;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import Model.*;
 import java.awt.*;
 import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class StudentProfileView extends JFrame {
     private Student student;
@@ -85,18 +85,23 @@ public class StudentProfileView extends JFrame {
         registerBtn = new JButton("Register for Subjects");
         refreshBtn = new JButton("Refresh");
         
+        // register button
         buttonPanel.add(registerBtn);
+
+        // refresh button
         buttonPanel.add(refreshBtn);
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private void setupEventHandlers() {
         registerBtn.addActionListener(e -> {
+            // Open SubjectListView for registration
             SubjectListView subjectListView = new SubjectListView(controller, student);
             subjectListView.setVisible(true);
         });
         
         refreshBtn.addActionListener(e -> {
+            // refresh profile data
             updateProfile(student);
         });
     }
@@ -109,7 +114,7 @@ public class StudentProfileView extends JFrame {
         nameLabel.setText(student.getPrefix() + " " + student.getFirstName() + " " + student.getLastName());
         schoolLabel.setText(student.getSchool());
         emailLabel.setText(student.getEmail());
-        ageLabel.setText(calculateAge(student));
+        ageLabel.setText(controller.calculateAgeForShow(student));
         
         // Update registered subjects table
         loadRegisteredSubjects();
@@ -123,6 +128,7 @@ public class StudentProfileView extends JFrame {
         
         for (Subject subject : allSubjects) {
             if (subject.isStudentRegistered(student.getId())) {
+                // Add subject to table
                 Object[] row = {
                     subject.getSubjectID(),
                     subject.getSubjectName(),
@@ -133,15 +139,5 @@ public class StudentProfileView extends JFrame {
                 tableModel.addRow(row);
             }
         }
-    }
-
-    private String calculateAge(Student student) {
-        if (student.getDateOfBirth() == null) return "N/A";
-        
-        java.time.Period period = java.time.Period.between(
-            student.getDateOfBirth(), 
-            java.time.LocalDate.now()
-        );
-        return String.valueOf(period.getYears()) + " years old";
     }
 }

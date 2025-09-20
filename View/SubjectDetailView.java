@@ -1,10 +1,9 @@
 package View;
 
 import Model.*;
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.util.ArrayList;
 
 public class SubjectDetailView extends JFrame {
     private Subject subject;
@@ -14,9 +13,9 @@ public class SubjectDetailView extends JFrame {
     private JLabel instructorLabel;
     private JLabel maxStudentsLabel;
     private JLabel currentStudentsLabel;
-    private JTable prerequisitesTable;
+    private JTable presubjectTable;
     private JTable registeredStudentsTable;
-    private DefaultTableModel prereqTableModel;
+    private DefaultTableModel presubjectTableModel;
     private DefaultTableModel studentsTableModel;
 
     public SubjectDetailView(Subject subject) {
@@ -40,9 +39,9 @@ public class SubjectDetailView extends JFrame {
         JPanel infoPanel = createInfoPanel();
         tabbedPane.addTab("Subject Information", infoPanel);
 
-        // Prerequisites Tab
-        JPanel prereqPanel = createPrerequisitesPanel();
-        tabbedPane.addTab("Prerequisites", prereqPanel);
+        // Presubject Tab
+        JPanel presubjectPanel = createPreSubjectPanel();
+        tabbedPane.addTab("Presubject", presubjectPanel);
 
         // Registered Students Tab
         JPanel studentsPanel = createRegisteredStudentsPanel();
@@ -111,19 +110,19 @@ public class SubjectDetailView extends JFrame {
         return panel;
     }
 
-    private JPanel createPrerequisitesPanel() {
+    private JPanel createPreSubjectPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         
         String[] columnNames = {"Subject ID", "Subject Name", "Credits", "Instructor"};
-        prereqTableModel = new DefaultTableModel(columnNames, 0) {
+        presubjectTableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        
-        prerequisitesTable = new JTable(prereqTableModel);
-        JScrollPane scrollPane = new JScrollPane(prerequisitesTable);
+
+        presubjectTable = new JTable(presubjectTableModel);
+        JScrollPane scrollPane = new JScrollPane(presubjectTable);
         panel.add(scrollPane, BorderLayout.CENTER);
         
         return panel;
@@ -160,14 +159,14 @@ public class SubjectDetailView extends JFrame {
         currentStudentsLabel.setText(String.valueOf(subject.getCurrentStudent()));
 
         // Load prerequisites
-        loadPrerequisites();
+        loadPreSubject();
         
         // Load registered students
         loadRegisteredStudents();
     }
 
-    private void loadPrerequisites() {
-        prereqTableModel.setRowCount(0);
+    private void loadPreSubject() {
+        presubjectTableModel.setRowCount(0);
         
         if (subject.getPreSubjectID() != null) {
             for (Subject prereq : subject.getPreSubjectID()) {
@@ -177,13 +176,13 @@ public class SubjectDetailView extends JFrame {
                     prereq.getCredits(),
                     prereq.getInstructor()
                 };
-                prereqTableModel.addRow(row);
+                presubjectTableModel.addRow(row);
             }
         }
         
-        if (prereqTableModel.getRowCount() == 0) {
-            Object[] row = {"No prerequisites", "", "", ""};
-            prereqTableModel.addRow(row);
+        if (presubjectTableModel.getRowCount() == 0) {
+            Object[] row = {"No presubject", "", "", ""};
+            presubjectTableModel.addRow(row);
         }
     }
 

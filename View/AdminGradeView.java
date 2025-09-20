@@ -1,13 +1,11 @@
 package View;
 
-import Model.*;
 import Controller.*;
+import Model.*;
+import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class AdminGradeView extends JFrame {
     private JTable studentTable;
