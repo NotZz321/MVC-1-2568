@@ -10,7 +10,6 @@ public class Controller {
     private ArrayList<Student> students;
     private ArrayList<Subject> subjects;
 
-
     public Controller(Database database) {
         this.database = database;
         this.students = database.getStudents();
@@ -51,17 +50,32 @@ public class Controller {
 
         subject.register(student);
         return "Registration successful.";
-
     }
 
     public boolean checkMinimumAge(LocalDate dateOfBirth) {
+        if (dateOfBirth == null) return false;
         LocalDate today = LocalDate.now(); 
         Period period = Period.between(dateOfBirth, today);
         return period.getYears() >= 15;
     }
 
-    public Object handleButtonClick() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'handleButtonClick'");
+    public boolean authenticateUser(String username, String password) {
+        return username.equals("admin") && password.equals("admin");
+    }
+
+    public Student authenticateStudent(String studentID) {
+        return database.findStudentByID(studentID);
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    public ArrayList<Subject> getSubjects() {
+        return subjects;
     }
 }

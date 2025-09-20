@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Database {
@@ -12,6 +13,7 @@ public class Database {
 
         addStudent();
         addSubject();
+        addStudentToSubject(students.get(0), subjects.get(1));
     }
 
     public void addStudent(Student student) {
@@ -23,11 +25,16 @@ public class Database {
     }
 
     private void addStudent() {
-        students.add(new Student("69012345", "Mr.", "John", "Doe", null, "ABC University", "john.doe@example.com"));
+        students.add(new Student("69012345", "Mr.", "John", "Doe", LocalDate.of(2000, 1, 1), "ABC University", "john.doe@example.com"));
     }
 
     private void addSubject() {
         subjects.add(new Subject("05501234", "Mathematics", 3, "Dr. Smith", null, 30, 0));
+        subjects.add(new Subject("05501001", "Basic Programming", 3, "Dr. Somchai", null, 50, 45));
+    }
+
+    private void addStudentToSubject(Student student, Subject subject) {
+        subject.register(student);
     }
 
     public ArrayList<Student> getStudents() {

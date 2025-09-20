@@ -10,9 +10,10 @@ public class Subject {
     private ArrayList<Subject> preSubjectID;
     private int maxStudent;
     private int currentStudent;
-    private ArrayList<Student> students;
+    private ArrayList<Student> students; // แก้ไข: เพิ่ม initialization
 
-    public Subject(String subjectID, String subjectName, int credits, String instructor, ArrayList<Subject> preSubjectID, int maxStudent, int currentStudent) {
+    public Subject(String subjectID, String subjectName, int credits, String instructor, 
+                   ArrayList<Subject> preSubjectID, int maxStudent, int currentStudent) {
         if (isValidSubjectID(subjectID) && isValidCredits(credits) && isValidmaxStudent(maxStudent)) {
             this.subjectID = subjectID;
             this.subjectName = subjectName;
@@ -20,10 +21,11 @@ public class Subject {
             this.instructor = instructor;
             this.preSubjectID = preSubjectID;
             this.maxStudent = maxStudent;
+            this.currentStudent = currentStudent;
+            this.students = new ArrayList<>(); // แก้ไข: initialize ArrayList
         } else {
             throw new IllegalArgumentException("Invalid Subject ID");
         }
-        this.currentStudent = currentStudent;
     }
 
     private boolean isValidSubjectID(String id) {
@@ -36,17 +38,11 @@ public class Subject {
     }
 
     private boolean isValidCredits(int credits) {
-        if (credits > 0) {
-            return true;
-        } 
-        return false;
+        return credits > 0;
     }
 
     private boolean isValidmaxStudent(int maxStudent) {
-        if (maxStudent > 0 || maxStudent == -1) {
-            return true;
-        } 
-        return false;
+        return maxStudent > 0 || maxStudent == -1;
     }
 
     public boolean canRegister() {
@@ -68,6 +64,7 @@ public class Subject {
     }
 
     public boolean isStudentRegistered(String studentID) {
+        if (students == null) return false; // แก้ไข: เพิ่ม null check
         for (Student student : students) {
             if (student.getId().equals(studentID)) {
                 return true;
@@ -76,6 +73,7 @@ public class Subject {
         return false;
     }
 
+    // Getters
     public String getSubjectID() { return subjectID; }
     public String getSubjectName() { return subjectName; }
     public int getCredits() { return credits; }
@@ -83,4 +81,5 @@ public class Subject {
     public ArrayList<Subject> getPreSubjectID() { return preSubjectID; }
     public int getMaxStudent() { return maxStudent; }
     public int getCurrentStudent() { return currentStudent; }
+    public ArrayList<Student> getStudents() { return students; }
 }
