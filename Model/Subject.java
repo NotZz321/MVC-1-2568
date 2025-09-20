@@ -1,14 +1,19 @@
+package Model;
+
+import java.util.ArrayList;
+
 public class Subject {
     private String subjectID;
     private String subjectName;
     private int credits;
     private String instructor;
-    private String preSubjectID;
-    private String maxStudent;
-    private String currentStudent;
+    private ArrayList<Subject> preSubjectID;
+    private int maxStudent;
+    private int currentStudent;
+    private ArrayList<Student> students;
 
-    public Subject(String subjectID, String subjectName, int credits, String instructor, String preSubjectID, String maxStudent, String currentStudent) {
-        if (isValidSubjectID(subjectID)) {
+    public Subject(String subjectID, String subjectName, int credits, String instructor, ArrayList<Subject> preSubjectID, int maxStudent, int currentStudent) {
+        if (isValidSubjectID(subjectID) && isValidCredits(credits) && isValidmaxStudent(maxStudent)) {
             this.subjectID = subjectID;
             this.subjectName = subjectName;
             this.credits = credits;
@@ -30,11 +35,52 @@ public class Subject {
         return false;
     }
 
-    private boolean isValidmaxStudent(String maxStudent) {
-        int max = Integer.parseInt(maxStudent);
-        if (max > 0 || max == -1) {
+    private boolean isValidCredits(int credits) {
+        if (credits > 0) {
             return true;
         } 
         return false;
     }
+
+    private boolean isValidmaxStudent(int maxStudent) {
+        if (maxStudent > 0 || maxStudent == -1) {
+            return true;
+        } 
+        return false;
+    }
+
+    public boolean canRegister() {
+        if (maxStudent == -1) {
+            return true;
+        } else if (currentStudent < maxStudent) {
+            return true;
+        }
+        return false;
+    }
+
+    public void register(Student student) {
+        if (canRegister()) {
+            students.add(student);
+            currentStudent++;
+        } else {
+            throw new IllegalStateException("Subject is full");
+        }
+    }
+
+    public boolean isStudentRegistered(String studentID) {
+        for (Student student : students) {
+            if (student.getId().equals(studentID)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getSubjectID() { return subjectID; }
+    public String getSubjectName() { return subjectName; }
+    public int getCredits() { return credits; }
+    public String getInstructor() { return instructor; }
+    public ArrayList<Subject> getPreSubjectID() { return preSubjectID; }
+    public int getMaxStudent() { return maxStudent; }
+    public int getCurrentStudent() { return currentStudent; }
 }

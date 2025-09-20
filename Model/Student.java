@@ -1,3 +1,4 @@
+package Model;
 
 import java.time.LocalDate;
 
@@ -31,4 +32,12 @@ public class Student {
         }
         return false;
     }
+
+    public String getId() { return id; }
+    public String getPrefix() { return prefix; }
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public LocalDate getDateOfBirth() { return dateOfBirth; }
+    public String getSchool() { return school; }
+    public String getEmail() { return email; }
 }
