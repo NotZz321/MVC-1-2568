@@ -43,7 +43,7 @@ public class Controller {
         if (subject.getPreSubjectID() != null) {
             for (Subject preSubject : subject.getPreSubjectID()) {
                 if (!preSubject.isStudentRegistered(student.getId())) {
-                    return "Student has not completed the prerequisite subjects.";
+                    return "Student has not completed the presubjects.";
                 }
             }
         }
