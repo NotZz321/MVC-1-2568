@@ -1,4 +1,5 @@
 package Controller;
+
 import Model.*;
 import java.time.LocalDate;
 import java.time.Period;
@@ -57,5 +58,10 @@ public class Controller {
         LocalDate today = LocalDate.now(); 
         Period period = Period.between(dateOfBirth, today);
         return period.getYears() >= 15;
+    }
+
+    public Object handleButtonClick() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'handleButtonClick'");
     }
 }
